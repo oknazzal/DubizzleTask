@@ -1,0 +1,86 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "kotlin-android-extensions"
+    id "androidx.navigation.safeargs.kotlin"
+    id "net.ltgt.errorprone" version "0.0.16"
+    id "io.gitlab.arturbosch.detekt" version "1.0.0-RC12"
+    id "org.jmailen.kotlinter" version "1.20.1"
+}
+
+android {
+    compileSdkVersion 28
+
+    androidExtensions {
+        experimental = true
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    defaultConfig {
+        applicationId "com.odai.dubizzle"
+
+        minSdkVersion 21
+        targetSdkVersion 28
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "../proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    configurations.all {
+
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+            force "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        }
+    }
+}
+
+kotlinter {
+    ignoreFailures = false
+    indentSize = 4
+    continuationIndentSize = 4
+    reporters = ["checkstyle", "html"]
+}
+
+kapt {
+    arguments {
+        arg('eventBusIndex', 'com.odai.dubizzle.common.MyEventBusIndex')
+    }
+}
+
+task myDetekt(type: JavaExec) {
+    main = "io.gitlab.arturbosch.detekt.cli.Main"
+    classpath = configurations.detekt
+    def input = "src/main/java"
+    def config = rootDir.path + "/detekt_config.yml"
+    def filters = ".*/resources/.*,.*/build/.*"
+    def params = ['-i', input, '-c', config, '-f', filters]
+    args(params)
+}
+
+afterEvaluate {
+    preBuild.dependsOn formatKotlin
+    preBuild.dependsOn myDetekt
+}
+
+dependencies {
+    errorprone "com.google.errorprone:error_prone_core:2.3.1"
+}
+apply from: "../dependencies.gradle"

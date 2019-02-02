@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseRecyclerView">
+        <attr name="empty_msg" format="string" />
+        <attr name="empty_icon" format="reference" />
+        <attr name="empty_button_text" format="string" />
+
+        <attr name="failed_button_text" format="string" />
+    </declare-styleable>
+</resources>

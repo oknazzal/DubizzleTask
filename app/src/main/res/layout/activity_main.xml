@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dlActivityMainRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ablActivityMain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/app_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoInternetConnection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/no_connection"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.odai.dubizzle.ui.custom.BaseRefreshLayout
+        android:id="@+id/rlActivityMain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ablActivityMain">
+
+        <com.odai.dubizzle.ui.custom.BaseRecyclerView
+            android:id="@+id/rvActivityMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:empty_button_text="@string/retry"
+            app:empty_msg="@string/msg_no_movies"
+            app:failed_button_text="@string/retry"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_movie" />
+    </com.odai.dubizzle.ui.custom.BaseRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.odai.dubizzle.models.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionGroup="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivRowMovieCover"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:transitionName="cover"
+            app:imageUrl="@{movie.posterPath}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <View
+            android:id="@+id/vRowMovieCoverOverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#a6000000"
+            app:layout_constraintBottom_toBottomOf="@+id/ivRowMovieCover"
+            app:layout_constraintEnd_toEndOf="@+id/ivRowMovieCover"
+            app:layout_constraintStart_toStartOf="@+id/ivRowMovieCover"
+            app:layout_constraintTop_toTopOf="@+id/ivRowMovieCover" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivRowMovieImage"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="centerCrop"
+            android:transitionName="image"
+            app:imageUrl="@{movie.backdropPath}"
+            app:layout_constraintBottom_toBottomOf="@+id/ivRowMovieCover"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRowMovieTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{movie.title}"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:transitionName="title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivRowMovieImage"
+            app:layout_constraintTop_toTopOf="@+id/ivRowMovieImage"
+            tools:text="@tools:sample/lorem/random" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRowMovieDesc"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:ellipsize="end"
+            android:maxLines="7"
+            android:text="@{movie.overview}"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:transitionName="desc"
+            app:layout_constraintBottom_toBottomOf="@+id/ivRowMovieImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivRowMovieImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvRowMovieTitle"
+            tools:text="@tools:sample/lorem/random" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
